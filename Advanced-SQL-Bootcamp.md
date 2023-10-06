@@ -8,3 +8,19 @@
 5. Hierarchical Queries
 6. Common Table Expressions
 
+### Data Cleaning & Manipulation
+
+
+* Functions that deal with NULL values:
+    - NVL()
+    - Coalesce()
+* Functions that can clean values:
+    - Trim()
+    - LPAD()
+    - RPAD()
+* Data Manipulation:
+    - PIVOT
+    - UNPIVOT
+
+
+
