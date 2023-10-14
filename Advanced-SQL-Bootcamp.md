@@ -78,9 +78,8 @@ Window functions do not collapse rows, but they are still able to compute aggreg
             UNBOUNDED FOLLOWING 
             N FOLLOWING (current row and unbounded following)
             ```
-
-            ![Alt text](image-1.png)
-
+            Note! For RANGE, you must have something in the ORDER BY clause., because RANGE gets nummerical values based on the order by column.
+            ![Alt text](image-3.png)
             ![Alt text](image-2.png)
 
 #### SQL Window function types:
@@ -104,3 +103,6 @@ Window functions do not collapse rows, but they are still able to compute aggreg
     - MAX()
     - MIN()
     - SUM()
+
+
+![Alt text](image-4.png)

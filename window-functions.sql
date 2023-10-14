@@ -31,3 +31,89 @@
     round(population / (sum(population) over(partition by a.region_id order by a.region_id)) * 100, 3) as pop_region_percentage
     from eba_countries a
     order by country_id
+
+    -- FRAMES EXAMPLES
+
+    -- ROWS
+    -- ROWS 1 PRECEDING = previous row
+    select 
+    sum(population) over (
+        partition by region_id
+        order by sub_region_id
+        ROWS UNBOUNDED PRECEDING AND 1 FOLLOWING-- This means that it will get the sum of all preceding rows + itself + 1 after itself(= current row) 
+    )
+
+    -- RANGE
+    -- RANGE 1 PRECEDING = if we have subregion_id = 20, then 1 preceding is 19.
+    select 
+    sum(population) over (
+        partition by region_id
+        order by sub_region_id
+        RANGE BETWEEN UNBOUNDED PRECEDING AND 10 FOLLOWING -- IT CONSIDERS a range of numerical values and compares them to the column value for the column that has been used in the ORDER BY clause. If you do not have anything in your ORDER BY clause, you cannot use range.
+    )
+
+    -- Difference between using order by and not using it:
+    select 
+    name,
+    region_id,
+    sub_region_id,
+    population,
+    sum(population) over(partition by region_id order by sub_region_id) as a, -- by default, the range is between unbounded preceding and current row, where in the next window function, the rande covers all rows
+    sum(population) over(partition by region_id) as b
+    from eba_countries;
+
+    -- AGGREGATES:
+    -- SUM
+    -- AVG
+    -- COUNT
+    -- MIN
+    -- MAX
+    select 
+    name,
+    region_id, 
+    sum(population) over(partition by region_id),
+    max(population) over(partition by region_id),
+    min(population) over(partition by region_id),
+    count(population) over(partition by region_id),
+    avg(population) over()
+    from eba_countries;
+
+    -- ROW_NUMBER
+    -- RANK
+    -- DENSE_RANK
+
+    -- LAG
+    select
+    name,
+    population,
+    lag(name) over(order by name),
+    lag(name, 2) over(order by name), 
+    lag(name, 2, 'blank') over(order by name)
+    from eba_countries;
+    -- LEAD
+    select
+    name,
+    population,
+    lead(name) over(order by name),
+    lead(name, 2) over(order by name), 
+    lead(name, 2, 'blank') over(order by name)
+    from eba_countries;
+    -- NTILE
+    select 
+    country_id,
+    name,
+    population,
+    ntile(20) over(order by name),
+    ntile(3) over(order by population desc),
+    ntile(5) over(order by region_id) -- 5 groups evenly distributed for each region
+    from eba_countries;
+    -- NTH_VALUE
+    select 
+    country_id,
+    name,
+    population,
+    nth_value(name, 2) over()
+    from eba_countries;
+
+    -- PERCENT_RANK
+    -- CUME_DIST
