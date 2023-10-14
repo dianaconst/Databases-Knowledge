@@ -70,5 +70,26 @@ select sal, rpad(sal, length(sal) + 3, 0) from emp; -- length() + 3 will add 3 m
     -- Transposes row values into columns
     -- You must ensure you select all the columns you wish to retain in your query, along with the column used in the aggregation and the column that holds the values in the list.
     -- SELECT * FROM (SELECT COL1, COL2, ..., COL_N FROM TABLE) PIVOT (AGG_FUNCTION(COL_N) FOR COL_N IN (LIST)); 
+    select * from 
+    (select region_id, sub_region_id, population from eba_countries)
+    pivot(sum(population) for region_id in (10, 20, 30, 40));
+    -- We can see that, for region 30, subregion 110 has a population of ~ 3 billion
 
+    select * from 
+    (select region_id, country_id, name, population from eba_countries)
+    pivot (sum(population) for region_id in (10, 20, 30, 40, 50))
+    order by country_id asc;
+
+----------
+-- UNPIVOT
+----------
+    -- Transforms columns into rows of two new columns
+    -- Column 1: previous column names
+    -- Column 2 : aggregated values:
+    -- SELECT * FROM TABLE 
+    -- UNPIVOT (MEASURE_COL FOR NEW_COL_NAME_HOLDS_EXISTING_PIVOTED_COL_NAMES IN (PIVOT_COL_LIST));
+    create table avg_test_scores (class varchar(10), maths number, science number, english number);
+    insert into avg_test_scores values ('7A', 70, 50, 80);
+    insert into avg_test_scores values ('7B', 80, 80, 90);
+    insert into avg_test_scores values ('7C', 70, 50, 80);
 
