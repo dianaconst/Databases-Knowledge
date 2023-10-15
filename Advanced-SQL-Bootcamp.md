@@ -8,6 +8,11 @@
 5. Hierarchical Queries
 6. Common Table Expressions
 
+## Joins
+Probably the most important topic.
+
+![Alt text](image-5.png)
+
 ## Data Cleaning & Manipulation
 * Functions that deal with NULL values:
     - NVL()
@@ -106,3 +111,14 @@ Window functions do not collapse rows, but they are still able to compute aggreg
 
 
 ![Alt text](image-4.png)
+
+## Order of execution of SQL queries
+    1. FROM
+    2. JOIN
+    3. WHERE 
+    4. GROUP BY
+    5. HAVING
+    6. WINDOW 
+    7. SELECT 
+    8. ORDER BY 
+    9. LIMIT / FETCH / TOP

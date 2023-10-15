@@ -78,9 +78,6 @@
     avg(population) over()
     from eba_countries;
 
-    -- ROW_NUMBER
-    -- RANK
-    -- DENSE_RANK
 
     -- LAG
     select
@@ -112,8 +109,59 @@
     country_id,
     name,
     population,
-    nth_value(name, 2) over()
+    nth_value(name, 2) over(),
+    nth_value(name, 2) over(partition by region_id)
+    from eba_countries;
+
+    -- ROW_NUMBER
+    -- RANK
+    -- DENSE_RANK
+    select 
+    country_id,
+    name,
+    population,
+    row_number() over(order by population),
+    rank() over (order by population),
+    dense_rank() over(order by population)
+    from eba_countries;
+    -- NOTE:
+    select 
+    country_id,
+    name,
+    population,
+    row_number() over(order by population),
+    rank() over (order by population),
+    dense_rank() over(order by population)
+    from eba_countries
+    order by country_id; -- DOES NOT CHANGE RESULT!! order by is executed last maybe? -> you need to check order in which clauses are executed
+    -- partitioning:
+    select 
+    country_id,
+    name,
+    population,
+    region_id,
+    row_number() over(partition by region_id order by population),
+    rank() over (partition by region_id order by population),
+    dense_rank() over(order by population)
     from eba_countries;
 
     -- PERCENT_RANK
     -- CUME_DIST
+    select 
+    country_id,
+    name,
+    population,
+    percent_rank() over(partition by region_id order by population), 
+    cume_dist() over(order by population)
+    from eba_countries;
+
+-- ORDER OF EXECUTION OF SQL QUERIES:
+    -- 1. FROM
+    -- 2. JOIN
+    -- 3. WHERE 
+    -- 4. GROUP BY
+    -- 5. HAVING
+    -- 6. WINDOW 
+    -- 7. SELECT 
+    -- 8. ORDER BY 
+    -- 9. LIMIT / FETCH / TOP
