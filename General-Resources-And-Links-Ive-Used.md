@@ -1,0 +1,7 @@
+- https://stackoverflow.com/questions/53747126/swap-column-values-within-one-row 
+- https://www.sqlshack.com/overview-of-sql-rank-functions/ 
+- https://stackoverflow.com/questions/62291513/query-to-count-number-of-rows-with-column-value-less-than-the-current-rows-valu
+- https://stackoverflow.com/questions/33327837/repeat-rows-n-times-according-to-column-value -> This is important for decomposing stuff
+- https://stackoverflow.com/questions/372961/mysql-use-aliased-fields-in-aggregate-functions -> You can only use aliases in Group By, Having, Order By
+- https://learnsql.com/blog/range-clause/
+-- https://www.sqliz.com/postgresql-ref/lag/ - LAG FUNCTION
